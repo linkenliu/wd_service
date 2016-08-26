@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>菜单列表</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>菜单列表</h2>
+                    <hr/>
+                    <form action="/admin/userList" class="form-inline" method="get">
+                        <div class="span12">
+                            <div class="clearfix span12" style="text-align: right">
+                                <div class="btn-group">
+                                    <a class="btn green" href="/admin/rightAdd"> <i
+                                            class="icon-plus"></i> 新增</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="bs-example4" data-example-id="contextual-table">
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>菜单名</th>
+                                <th>节点</th>
+                                <th>是否父级</th>
+                                <th>排序</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%rightList.forEach(function(item,index){%>
+                            <%if(item.is_parent == 1){%>
+                            <tr class="active" style="background-color: #f7f7f7">
+                            <%}else{%>
+                            <tr class="active">
+                            <%}%>
+                                <th scope="row"><%=index+1%></th>
+                                <td><%=item.right_name%></td>
+                                <td><%=item.right_node%></td>
+                                <td>
+                                    <%if(item.is_parent == 1){%>
+                                    是
+                                    <%}else{%>
+                                    否
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <%=item.sort%>
+                                </td>
+                                <td>
+                                    <a class="btn blue" href="/admin/rightEdit?right_id=<%=item.right_id%>"> <i
+                                            class="icon-edit"></i> 编辑
+                                    </a> <button class="btn red" onclick="delRight('delModal','<%=item.right_id%>','<%=item.right_name%>')"> <i
+                                        class="icon-trash"></i> 删除
+                                </button>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="delModal" tabindex="0" role="dialog"  aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="del_right_id"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('delModal')"></button>
+                <h2 class="modal-title" >删除菜单</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <span style="color: #d9534f;font-size: 26px">你确认要删除<span style="color: #5cb85c" id="del_right_name_flag"></span>这个菜单吗?</span>
+                        <!--<img src="/images/paopaobin.gif"/>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('delModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn red" id="rightDel"><i
+                        class="icon-trash"></i> 删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#system_li").addClass('active');
+    });
+</script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/right-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

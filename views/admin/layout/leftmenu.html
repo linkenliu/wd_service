@@ -1,0 +1,128 @@
+<div class="page-sidebar nav-collapse collapse" style="background-color: #F7F7F7;">
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="page-sidebar-menu">
+        <li>
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            <div class="sidebar-toggler hidden-phone" style="margin-bottom: 13px"></div>
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        </li>
+      <!--  <li>
+            &lt;!&ndash; BEGIN RESPONSIVE QUICK SEARCH FORM &ndash;&gt;
+            <form class="sidebar-search" action="#" onsubmit="return false">
+                <div class="input-box">
+                    <a href="javascript:;" class="remove"></a>
+                    <input type="text" placeholder="Search..."/>
+                    <i class="icon-search" style="color: #bfbfbf"></i>
+                </div>
+            </form>
+            &lt;!&ndash; END RESPONSIVE QUICK SEARCH FORM &ndash;&gt;
+        </li>-->
+        <li class="" id="adminIndex_li">
+            <a href="/admin/index" class="ajax-link">
+                <i class="icon-home"></i>
+                <span class="title" >系统概述</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <%if(menuList.indexOf('USER_LIST') > -1){%>
+        <li class="" id="adminUserList_li">
+            <a href="/admin/userList" class="ajax-link">
+                <i class="icon-user"></i>
+                <span class="title">用户列表</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <%}%>
+        <%if(menuList.indexOf('MESSAGE_LIST') > -1){%>
+        <li class="" id="adminMessageList_li">
+            <a href="/admin/messageList" class="ajax-link">
+                <i class="icon-envelope-alt"></i>
+                <span class="title">消息列表</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <%}%>
+        <%if(menuList.indexOf('CHANNEL_MANAGER') > -1){%>
+        <li class="" id="adminChannelList_li">
+            <a href="javascript:;" class="ajax-link">
+                <i class="icon-youtube-play"></i>
+                <span class="title">频道管理</span>
+                <span class="arrow "></span>
+                <span class="selected"></span>
+            </a>
+            <ul class="sub-menu">
+                <%if(menuList.indexOf('CHANNEL_LIST') > -1){%>
+                <li class="">
+                    <a href="/admin/channelList" class="ajax-link">
+                        <i class="icon-youtube-play"></i>
+                        <span class="title">频道列表</span>
+                    </a>
+                </li>
+                <%}%>
+                <%if(menuList.indexOf('CHANNEL_SPSS') > -1){%>
+                <li class="">
+                    <a href="/admin/channelSPSS" class="ajax-link">
+                        <i class="icon-leaf"></i>
+                        <span class="title">统计信息</span>
+                    </a>
+                </li>
+                <%}%>
+                <%if(menuList.indexOf('CHANNEL_SCREENSHOT') > -1){%>
+                <li class="">
+                    <a href="/admin/channelScreenshot" class="ajax-link">
+                        <i class="  icon-barcode"></i>
+                        <span class="title">电视墙</span>
+                    </a>
+                </li>
+                <%}%>
+            </ul>
+        </li>
+        <%}%>
+        <%if(menuList.indexOf('ACTIVE_LIST') > -1){%>
+        <li class="" id="adminActiveList_li">
+            <a href="/admin/activeList" class="ajax-link">
+                <i class="icon-tumblr"></i>
+                <span class="title">活跃度</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <%}%>
+        <%if(menuList.indexOf('SYSTEM_SET') > -1){%>
+        <li class="" id="system_li">
+            <a href="javascript:;" class="ajax-link">
+                <i class="icon-cog"></i>
+                <span class="title">系统设置</span>
+                <span class="arrow "></span>
+                <span class="selected"></span>
+            </a>
+            <ul class="sub-menu">
+                <%if(menuList.indexOf('EDITOR_LIST') > -1){%>
+                <li class="" id="editorList_li">
+                    <a href="/admin/editorList" class="ajax-link">
+                        <i class="icon-user"></i>
+                        <span class="title">小编列表</span>
+                    </a>
+                </li>
+                <%}%>
+                <%if(menuList.indexOf('ROLE_LIST') > -1){%>
+                <li class="2">
+                    <a href="/admin/roleList" class="ajax-link">
+                        <i class=" icon-user-md"></i>
+                        <span class="title">角色列表</span>
+                    </a>
+                </li>
+                <%}%>
+                <%if(menuList.indexOf('RIGHT_LIST') > -1){%>
+                <li class="" id="1">
+                    <a href="/admin/rightList" class="ajax-link">
+                        <i class="icon-list-alt"></i>
+                        <span class="title">菜单列表</span>
+                    </a>
+                </li>
+                <%}%>
+            </ul>
+        </li>
+        <%}%>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>

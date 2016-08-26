@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>新增用户</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/userAdd" class="form-horizontal" method="post" id="userAddForm" onsubmit="return userAddForm()">
+
+                            <h3 class="form-section">新增用户</h3>
+
+                            <div class="row-fluid">
+
+                                <div class="span6">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">ID:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入编号" name="device_id" id="user_id_forAdd" onblur="checkID()"
+                                                   required="required">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span id="eoor_id" style="color: red"></span>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">用户名:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入用户名" name="user_name"
+                                                   required="required">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">电话:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入电话" name="phone"
+                                                   >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">地址:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入地址" name="address"
+                                                    >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+                                    <div class="control-group">
+
+                                        <label class="control-label">性别:</label>
+
+                                        <div class="controls">
+
+                                            <label class="radio">
+
+                                                <div class="radio"><span class=""><input type="radio"
+                                                                                         name="gender"
+                                                                                         value="1" checked="checked"></span></div>
+
+                                                男
+
+                                            </label>
+
+                                            <label class="radio">
+
+                                                <div class="radio"><span class=""><input type="radio"
+                                                                                                name="gender"
+                                                                                                value="0"
+                                                                                                ></span></div>
+
+                                                女
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">Email:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入Email"
+                                                   name="email" id="email">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span id="error_email" style="color: red"></span>
+                            </div>
+                            <!--/row-->
+
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i
+                                        class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/user-main.js"></script>
+
+<% include layout/footer.html %>
+</body>
+</html>

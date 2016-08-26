@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>频道统计</title>
+    <% include layout/header.html %>
+    <style>
+        .style_tr td{
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .style_tr th{
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>历史统计信息</h2>
+                    <hr/>
+                    <form action="/admin/userList" class="form-inline" method="get">
+                        <div class="span6">
+                            <h4>观看人数和频道质量</h4>
+                        </div>
+                        <div class="span6" style="text-align: right">
+                            <select class=" medium" name="postChoose" id="select_channel" onchange="changeChannel()">
+                                <option value="">所有频道</option>
+                                <%channelList.forEach(function(item,index){%>
+                                <option value="<%=item.chid%>"><%=item.chid%>.<%=item.name%></option>
+                                <%})%>
+                            </select>
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="box-content">
+                        <div id="container" style="min-width:700px;height:400px"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid" style="margin-top: 40px">
+                <div class="span12" >
+                    <h2>当前统计信息</h2>
+                    <hr/>
+                    <form action="/admin/userList" class="form-inline" method="get">
+                        <div class="span12" style="text-align: right">
+                            <input type="text" aria-controls="sample_editable_1" class="m-wrap medium" onkeyup="channelSearch()" id="keyWord" name="keyWord" placeholder="请输入频道名">
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <table class="table table-hover" id="channelTable">
+                        <thead class="text-center">
+                        <tr>
+                            <th>序号</th>
+                            <th>CHID</th>
+                            <th>SID</th>
+                            <th>频道名</th>
+                            <th>发布</th>
+                            <th>状态</th>
+                            <th>用户数</th>
+                            <th>QS</th>
+                            <th>QC</th>
+                        </tr>
+                        </thead>
+                        <tbody id="mytbody">
+                        <tr v-for="item in currentList" class="style_tr">
+                            <th class="center">{{$index+1}}</th>
+                            <td class="center"><a href="/admin/channelList?chid={{item.chid}}">{{item.chid}}</a></td>
+                            <td class="center">{{item.sid}}</td>
+                            <td class="center">{{item.name}}
+                                <input type="hidden" name="channel_name" value="{{item.name}}"/>
+                            </td>
+                            <td>
+                                <template v-if="item.release_state==1">
+                                <i class=" icon-off" style="color: #3cc051"></i>
+                                </template>
+                                <template v-else>
+                                    <i class=" icon-off"></i>
+                                </template>
+                            </td>
+                            <td>
+                                <template v-if="item.state==1">
+                                    <i class="icon-play" style="color: #3cc051"></i>
+                                </template>
+                                <template v-else>
+                                    <i class=" icon-stop"></i>
+                                </template>
+                            </td>
+                            <td class="center">{{item.users}}</td>
+                            <td class="center">
+                                <template v-if="item.qs>=60">
+                                    <span style="color:#3cc051">{{item.qs}}</span>
+                                </template>
+                                <template v-else>
+                                    <span style="color:red">{{item.qs}}</span>
+                                </template>
+                            </td>
+                            <td class="center">
+                                <template v-if="item.qc>=60">
+                                    <span style="color:#3cc051">{{item.qc}}</span>
+                                </template>
+                                <template v-else>
+                                    <span style="color:red">{{item.qc}}</span>
+                                </template>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#adminChannelList_li").addClass('active');
+    });
+</script>
+<script src="../javascripts/vendor/channel_spss.js"></script>
+<script src="http://cdn.hcharts.cn/highstock/highstock.js"></script>
+<script src="http://apps.bdimg.com/libs/vue/1.0.8/vue.min.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

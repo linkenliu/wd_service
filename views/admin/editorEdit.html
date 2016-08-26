@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>编辑小编</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/editorEdit" class="form-horizontal" method="post" id="editorForm2" onsubmit="return checkForm2()">
+                            <input type="hidden" name="id" value="<%=editor.id%>" id="editorId"/>
+                            <h2 class="form-section">编辑小编</h2>
+
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">用户名:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入用户名" name="name" id="name2" required="required" value="<%=editor.name%>" onblur="checkName2()">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span style="color: red" id="eoor_name2"></span>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">密码:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入密码" name="password" required="required" value="<%=editor.password%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">电话:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入电话" name="phone" value="<%=editor.phone%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">Email:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入Email" name="email" value="<%=editor.email%>" id="email2">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span style="color: red" id="error_email2"></span>
+                            </div>
+
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">所属角色:</label>
+
+                                        <div class="controls">
+                                            <%roleList.forEach(function(item,index){%>
+                                            <label class="radio">
+                                                <%if(editor.role_id == item.role_id){%>
+                                                <div class="radio"><span><input type="radio" checked="checked" name="role" value="<%=item.role_id%>"></span></div>
+                                                <%=item.role_name%>
+                                                <%}else{%>
+                                                <div class="radio"><span><input type="radio" name="role" value="<%=item.role_id%>"></span></div>
+                                                <%=item.role_name%>
+                                                <%}%>
+                                            </label>
+                                            <%})%>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--/row-->
+
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#system_li").addClass('active');
+    });
+</script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/editor-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

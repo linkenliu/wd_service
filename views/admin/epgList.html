@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>EPG列表</title>
+    <% include layout/header.html %>
+    <style>
+        .style_tr td{
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .style_tr th{
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2><a href="/admin/channelList"><i class="icon-chevron-left" ></i></a>&nbsp;EPG列表&nbsp;&nbsp;&nbsp;<span style="font-size: 24px">所属</span><span style="color: #1d943b;font-size: 24px">[<%=channel_name%>]</span><span style="font-size: 24px">频道</span></h2>
+                    <hr/>
+                    <form action="/admin/epgList" class="form-inline" method="get">
+                        <div class="span10">
+                            <input name="channel_id" type="hidden" value="<%=channel_id%>"/>
+                            <input name="channel_name" type="hidden" value="<%=channel_name%>"/>
+                            <select class="m-wrap medium" name="postChoose">
+                                <option value="1">名称</option>
+                            </select>
+                        <input type="text" aria-controls="sample_editable_1" class="m-wrap medium" name="keyWord" placeholder="请输入名称">
+                        <button class="btn" type="submit"> <i
+                                class="icon-search"></i> 搜索</button></div>
+                        <div class="clearfix span2" style="text-align: right">
+                            <div class="btn-group">
+                                <a class="btn green" href="/admin/epgAddUI?channel_id=<%=channel_id%>&channel_name=<%=channel_name%>"> <i
+                                        class="icon-plus"></i> 新增</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="bs-example4" data-example-id="contextual-table">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>名称</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>发布时间</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%epgList.forEach(function(item,index){%>
+                            <tr class="active style_tr">
+                                <th scope="row"><%=index+1%></th>
+                                <td><%=item.name%></td>
+                                <td><%=item.start_date%></td>
+                                <td><%=item.end_date%></td>
+                                <td><%=item.release_date%></td>
+                                <td>
+                                    <%if(item.state == 1){%>
+                                    <span class="label label-success">正常</span>
+                                    <%}else{%>
+                                    <span class="label label-warning">异常</span>
+                                    <%}%>
+                                </td>
+                                <td><%=item.create_date%></td>
+                                <td>
+                                    <a class="btn blue" href="/admin/epgEditUI?channel_id=<%=channel_id%>&channel_name=<%=channel_name%>&epg_id=<%=item.epg_id%>"> <i
+                                            class="icon-edit"></i> 编辑
+                                    </a> <button class="btn red delEpg" id_date="<%=item.epg_id%>" name_data="<%=item.name%>"> <i
+                                        class="icon-trash"></i> 删除
+                                </button>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="deleteModal" tabindex="0" role="dialog"  aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="del_key_id"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('deleteModal')"></button>
+                <h2 class="modal-title" id="ss">删除EPG</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <span style="color: #d9534f;font-size: 26px">你确认要删除<span style="color: #5cb85c" id="delete_user_name_flag"></span>这个EPG吗?</span>
+                        <!--<img src="/images/paopaobin.gif"/>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('deleteModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn red" id="epgDelete"><i
+                        class="icon-trash"></i> 删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#adminChannelList_li").addClass('active');
+    });
+</script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/channel-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>编辑费用</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/userMoneyEdit" class="form-horizontal" method="post">
+                        <input type="hidden" value="<%=userMoney.id%>" name="id"/>
+                            <input type="hidden" value="<%=userMoney.user_id%>" name="key_id"/>
+                            <h3 class="form-section">编辑费用</h3>
+
+                            <div class="row-fluid">
+
+                                <div class="span6">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">金额:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入金额" name="money"
+                                                   required="required" onkeyup="value=value.replace(/[^\d.]/g,'')" value="<%=userMoney.money%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">开始时间:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" value="<%=userMoney.start_date%>" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" readonly placeholder="开始时间" name="start_date"
+                                                   required="required">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">结束时间:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" value="<%=userMoney.end_date%>" placeholder="结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" readonly name="end_date"
+                                                   required="required">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!--/row-->
+
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i
+                                        class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% include layout/footer.html %>
+</body>
+</html>

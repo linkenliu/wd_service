@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>系统概述</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <div class="row-fluid">
+
+                <div class="span12">
+
+
+                    <h1 class="page-title">
+
+                        系统概述
+
+                    </h1>
+                    <hr/>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<% include layout/footer.html %>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#adminIndex_li").addClass('active');
+    });
+</script>
+</body>
+</html>
+

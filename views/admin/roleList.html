@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>角色列表</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>角色列表</h2>
+                    <hr/>
+                    <form action="/admin/userList" class="form-inline" method="get">
+                        <div class="span12">
+                            <div class="clearfix span12" style="text-align: right">
+                                <div class="btn-group">
+                                    <a class="btn green" href="/admin/roleAdd"> <i
+                                            class="icon-plus"></i> 新增</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="bs-example4" data-example-id="contextual-table">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>角色名称</th>
+                                <th>角色节点</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%roleList.forEach(function(item,index){%>
+                            <tr class="active">
+                                <th scope="row"><%=index+1%></th>
+                                <td><%=item.role_name%></td>
+                                <td><%=item.role_node%></td>
+                                <td><%=item.create_date%></td>
+                                <td>
+                                    <a class="btn blue" href="/admin/roleEdit?role_id=<%=item.role_id%>"> <i
+                                            class="icon-edit"></i> 编辑
+                                    </a> <button class="btn red" onclick="delRole('delRoleModal','<%=item.role_id%>','<%=item.role_name%>')"> <i
+                                        class="icon-trash"></i> 删除
+                                </button>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="delRoleModal" tabindex="0" role="dialog"  aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="del_role_id"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('delRoleModal')"></button>
+                <h2 class="modal-title" >删除角色</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <span style="color: #d9534f;font-size: 26px">你确认要删除<span style="color: #5cb85c" id="del_role_name_flag"></span>这个角色吗?</span>
+                        <!--<img src="/images/paopaobin.gif"/>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('delRoleModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn red" id="roleDel"><i
+                        class="icon-trash"></i> 删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#system_li").addClass('active');
+    });
+</script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/right-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

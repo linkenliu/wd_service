@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>电视墙</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>电视墙</h2>
+                    <hr/>
+                  <form action="" class="form-inline" method="get">
+                       <div class="span12" style="text-align: right">
+                           <input type="text" aria-controls="sample_editable_1" onkeyup="channelScreenshotSearch()" id="keyWord" class="m-wrap medium" name="keyWord"
+                                  placeholder="请输入频道名">
+                       </div>
+                   </form>
+                   <hr/>
+                </div>
+            </div>
+            <hr/>
+            <div class="row-fluid">
+                <div class="span12" id="example">
+                    <div class="span3" v-for="item in list"
+                         style="margin-left: 10px;margin-right: 10px;margin-top: 30px">
+                        <template v-if="item.state == 0 || item.release_state == 0 || !item.screenshot_small">
+                            <a onclick="" class="btn btn-primary btn-lg" data-toggle="modal" data-target=""><img src="../image/jctv/default.jpg" style="width: 300px"/></a>
+                            <span style="color: #53e578;font-size: 15px">[{{item.users}}/</span>
+                            <template v-if="item.qs>=60">
+                                <span style="color: #53e578;font-size: 15px">{{item.qs}}</span>
+                            </template>
+                            <template v-else>
+                                <span style="color: red;font-size: 15px">{{item.qs}}</span>
+                            </template>
+                            /
+                            <template v-if="item.qc>=60">
+                                <span style="color: #53e578;font-size: 15px">{{item.qc}}</span>
+                            </template>
+                            <template v-else>
+                                <span style="color: red;font-size: 15px">{{item.qc}}</span>
+                            </template>
+                            <span style="color: #53e578;font-size: 15px">]</span>
+                            <span style="font-size: 15px">{{item.chid}}-{{item.name}}
+                            <input type="hidden" value="{{item.name}}" name="channel_name"/>
+                            </span>
+                        </template>
+                        <template v-else>
+                            <div style="position: absolute"><p
+                                    style="background-color: gainsboro;font-size: 19px;width: 52px">{{item.create_date}}</p>
+                            </div>
+                            <a onclick="showImg('{{item.screenshot}}')" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#showImgModal"><img src="{{item.screenshot_small}}" style="width: 300px"/></a>
+                            <span style="color: #53e578;font-size: 15px">[{{item.users}}/</span>
+                            <template v-if="item.qs>=60">
+                                <span style="color: #53e578;font-size: 15px">{{item.qs}}</span>
+                            </template>
+                            <template v-else>
+                                <span style="color: red;font-size: 15px">{{item.qs}}</span>
+                            </template>
+                            /
+                            <template v-if="item.qc>=60">
+                                <span style="color: #53e578;font-size: 15px">{{item.qc}}</span>
+                            </template>
+                            <template v-else>
+                                <span style="color: red;font-size: 15px">{{item.qc}}</span>
+                            </template>
+                            <span style="color: #53e578;font-size: 15px">]</span>
+                            <span style="font-size: 15px">{{item.chid}}-{{item.name}}
+                            <input type="hidden" value="{{item.name}}" name="channel_name"/>
+                            </span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="showImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="width: 700px">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="" class="showImg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".page-sidebar li").removeClass('active');
+        $("#adminChannelList_li").addClass('active');
+    });
+
+</script>
+
+<script src="http://apps.bdimg.com/libs/vue/1.0.8/vue.min.js"></script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/channel-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

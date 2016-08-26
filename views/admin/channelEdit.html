@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>编辑频道</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/channelEdit" class="form-horizontal" method="post" >
+                            <input type="hidden" name="chid" value="<%=channel.chid%>"/>
+                            <input type="hidden" name="action" value="edit"/>
+                            <h2 class="form-section">编辑频道</h2>
+
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">SID:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="" name="sid" value="<%=channel.sid%>" readonly="readonly" >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">频道名称:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="" name="name" value="<%=channel.name%>" readonly="readonly" >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">数据源:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="" name="source" value="<%=channel.source%>" readonly="readonly">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">比例:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入频道视频比例" name="proportion" value="<%=channel.proportion%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">频道编号:</label>
+
+                                        <div class="controls">
+
+                                            <input type="number" class="m-wrap span12" placeholder="请输入频道编号" name="key_code" value="<%=channel.key_code%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--/row-->
+
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include layout/footer.html %>
+</body>
+</html>

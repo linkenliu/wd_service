@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>用户列表</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>用户列表</h2>
+                    <hr/>
+                    <form action="/admin/userList" class="form-inline" method="get">
+                        <div class="span10">
+                            <select class="m-wrap medium" name="postChoose">
+                                <option value="1">用户名</option>
+                                <option value="2">ID</option>
+                                <option value="3">电话</option>
+                            </select>
+                        <input type="text" aria-controls="sample_editable_1" class="m-wrap medium" name="keyWord" placeholder="请输入用户名">
+                        <button class="btn" type="submit"> <i
+                                class="icon-search"></i> 搜索</button></div>
+                        <div class="clearfix span2" style="text-align: right">
+                            <div class="btn-group">
+                                <a class="btn green" href="/admin/userAddUI"> <i
+                                        class="icon-plus"></i> 新增</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="bs-example4" data-example-id="contextual-table">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>电话</th>
+                                <th>Email</th>
+                                <th>性别</th>
+                                <th>编辑</th>
+                                <th>创建时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%userList.forEach(function(item,index){%>
+                            <tr class="active">
+                                <th scope="row"><%=index+1%></th>
+                                <td><a href="/admin/userMoneyList?key_id=<%=item.user_id%>"><%=item.device_id%></a></td>
+                                <td><%=item.user_name%></td>
+                                <td><%=item.phone%></td>
+                                <td><%=item.email%></td>
+                                <td>
+                                    <%if(item.gender == 1){%>
+                                    <span class=" ">男</span>
+                                    <%}else if(item.gender == 0){%>
+                                    <span class=" ">女</span>
+                                    <%}else{%>
+                                    <span class="label label-warning">未知</span>
+                                    <%}%>
+                                </td>
+                                <td><%=item.editor_name%></td>
+                                <td><%=item.create_date%></td>
+                                <td>
+                                    <%if(item.state == 1){%>
+                                    <span class="label label-success">正常</span>
+                                    <%}else if(item.state == 0){%>
+                                    <span class="label label-warning">冻结</span>
+                                    <%}else{%>
+                                    <span class="label label-warning">未知</span>
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <a class="btn blue" href="/admin/userEditUI?key_id=<%=item.user_id%>"> <i
+                                            class="icon-edit"></i> 编辑</a>
+                                    <button class="btn" onclick="pushMessage('myModal','<%=item.user_id%>')"> <i
+                                            class="icon-envelope-alt"></i> 推送</button>
+                                    <%if(item.state == 1){%>
+                                     <button class="btn yellow delEditor" onclick="deleteUser('deleteModal','<%=item.user_id%>','<%=item.user_name%>')"> <i
+                                        class="icon-ban-circle"></i> 冻结 </button>
+                                    <%}else if(item.state == 0){%>
+                                     <a class="btn green" href="/admin/userState?key_id=<%=item.user_id%>"> <i
+                                        class="icon-ok"></i> 解冻 </a>
+                                    <%}else{%>
+                                     <button class="btn yellow delEditor" onclick="deleteUser('deleteModal','<%=item.user_id%>','<%=item.user_name%>')"> <i
+                                        class="icon-ban-circle"></i> 冻结 </button>
+                                    <%}%>
+                                    <button class="btn red delEditor" onclick="delUser('delModal','<%=item.user_id%>','<%=item.user_name%>')"><i
+                                            class="icon-trash"></i> 删除 </button>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                        <%if(totalCount >50){%>
+                        <nav>
+                            <ul class="pager">
+                                <%if(currentPage==1){%>
+                                <li class="disabled"><a href="#">上一页</a></li>
+                                <%}else{%>
+                                <li ><a href="/admin/userList?pageIndex=<%=(parseInt(currentPage)-1)%>&pageSize=50&postChoose=<%=params.postChoose%>&keyWord=<%=params.keyWord%>">上一页</a></li>
+                                <%}%>
+                                <li>第<%=currentPage%>页</li>
+                                <%if(currentPage==(totalCount%50 ==0?totalCount/50:Math.ceil(totalCount/50))){%>
+                                <li class="disabled"><a href="#">下一页</a></li>
+                                <%}else{%>
+                                <li ><a href="/admin/userList?pageIndex=<%=(parseInt(currentPage)+1)%>&pageSize=50&postChoose=<%=params.postChoose%>&keyWord=<%=params.keyWord%>">下一页</a></li>
+                                <%}%>
+                                <li>共<%=(totalCount%50==0?totalCount/50:Math.ceil(totalCount/50))%>页</li>
+                                <li>共<%=totalCount%>条</li>
+                                <li>每页50条</li>
+                            </ul>
+                        </nav>
+                        <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="deleteModal" tabindex="0" role="dialog"  aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="del_key_id"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('deleteModal')"></button>
+                <h2 class="modal-title" id="ss">冻结用户</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <span style="color: #d9534f;font-size: 26px">你确认要冻结<span style="color: #5cb85c" id="delete_user_name_flag"></span>这个用户吗?</span>
+                        <!--<img src="/images/paopaobin.gif"/>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('deleteModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn yellow" id="userDelete"><i
+                        class="icon-ban-circle"></i> 冻结</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="delModal" tabindex="0" role="dialog"  aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="del_user_id"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('delModal')"></button>
+                <h2 class="modal-title" >删除用户</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <span style="color: #d9534f;font-size: 26px">你确认要删除<span style="color: #5cb85c" id="del_user_name_flag"></span>这个用户吗?</span>
+                        <!--<img src="/images/paopaobin.gif"/>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('delModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn red" id="userDel"><i
+                        class="icon-trash"></i> 删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="myModal" role="dialog" aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="push_key_id"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('myModal')"></button>
+                <h2 class="modal-title" id="myModalLabel">消息推送</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <form action="/admin/userList" class="form-inline" method="get">
+                                <textarea style="width: 516px;height: 181px;" placeholder="请输入推送的消息" id="message"></textarea>
+                        </form>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('myModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn green" id="push_message"><i
+                        class="icon-ok"></i> 推送</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/user-main.js"></script>
+
+<% include layout/footer.html %>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#adminUserList_li").addClass('active');
+    });
+</script>
+</body>
+</html>

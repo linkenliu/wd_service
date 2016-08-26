@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>编辑用户</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/userEdit" class="form-horizontal" method="post" id="userEditForm" onsubmit="return userAddForm2()">
+                            <input type="hidden" name="key_id" value="<%=user.user_id%>"/>
+                            <h3 class="form-section">编辑用户</h3>
+
+                            <div class="row-fluid">
+
+                                <div class="span6">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">ID:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入编号" name="device_id"
+                                                   required="required" value="<%=user.device_id%>" onblur="checkID2('<%=user.user_id%>')" id="user_id_forEdit">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span id="error_edit_id" style="color: red"></span>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">用户名:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入用户名" name="user_name"
+                                                   required="required" value="<%=user.user_name%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">电话:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入电话" name="phone"
+                                                    value="<%=user.phone%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">地址:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入地址" name="address" value="<%=user.address%>"
+                                                    >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+                                    <div class="control-group">
+
+                                        <label class="control-label">性别:</label>
+
+                                        <div class="controls">
+
+                                            <label class="radio">
+
+                                                <div class="radio"><span class=""><input type="radio"
+                                                                                         name="gender"
+                                                                                         value="1"  <%if(user.gender == 1){%>checked="checked"<%}%>></span></div>
+
+                                                男
+
+                                            </label>
+
+                                            <label class="radio">
+
+                                                <div class="radio"><span class=""><input type="radio"
+                                                                                                name="gender"
+                                                                                                value="0"
+                                                                                                <%if(user.gender == 0){%>checked="checked"<%}%>
+                                                                                                ></span></div>
+
+                                                女
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">Email:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入Email"
+                                                   name="email" value="<%=user.email%>" id="email2">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span id="error_edit_email" style="color: red"></span>
+                            </div>
+                            <!--/row-->
+
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i
+                                        class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/user-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>

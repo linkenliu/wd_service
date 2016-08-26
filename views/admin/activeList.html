@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>活跃度列表</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>活跃度列表</h2>
+                    <hr/>
+                    <form action="/admin/activeList" class="form-inline" method="get">
+                        <div class="span10">
+                            <select class="m-wrap medium" name="postChoose">
+                                <option value="1">用户名</option>
+                                <option value="2">ID</option>
+                            </select>
+                        <input type="text" aria-controls="sample_editable_1" class="m-wrap medium" name="keyWord" placeholder="请输入用户名">
+                        <button class="btn" type="submit"> <i
+                                class="icon-search"></i> 搜索</button></div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="bs-example4" data-example-id="contextual-table">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>观看时长</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%activeList.forEach(function(item,index){%>
+                            <tr class="active">
+                                <th><%=index+1%></th>
+                                <td><%=item.user_id%></td>
+                                <td><%=item.user_name%></td>
+                                <td><%=item.look_long%></td>
+                                <td>
+                                    <%if(item.state == 1){%>
+                                    <span class="label label-success">正常</span>
+                                    <%}else if(item.state == 0){%>
+                                    <span class="label label-warning">冻结</span>
+                                    <%}else{%>
+                                    <span class="label label-warning">未知</span>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                        <%if(totalCount >50){%>
+                        <nav>
+                            <ul class="pager">
+                                <%if(currentPage==1){%>
+                                <li class="disabled"><a href="#">上一页</a></li>
+                                <%}else{%>
+                                <li ><a href="/admin/activeList?pageIndex=<%=(parseInt(currentPage)-1)%>&pageSize=50&postChoose=<%=params.postChoose%>&keyWord=<%=params.keyWord%>">上一页</a></li>
+                                <%}%>
+                                <li>第<%=currentPage%>页</li>
+                                <%if(currentPage==(totalCount%50 ==0?totalCount/50:Math.ceil(totalCount/50))){%>
+                                <li class="disabled"><a href="#">下一页</a></li>
+                                <%}else{%>
+                                <li ><a href="/admin/activeList?pageIndex=<%=(parseInt(currentPage)+1)%>&pageSize=50&postChoose=<%=params.postChoose%>&keyWord=<%=params.keyWord%>">下一页</a></li>
+                                <%}%>
+                                <li>共<%=(totalCount%50==0?totalCount/50:Math.ceil(totalCount/50))%>页</li>
+                                <li>共<%=totalCount%>条</li>
+                                <li>每页50条</li>
+                            </ul>
+                        </nav>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#adminActiveList_li").addClass('active');
+    });
+</script>
+<% include layout/footer.html %>
+</body>
+</html>

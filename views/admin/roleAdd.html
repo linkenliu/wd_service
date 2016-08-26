@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>新增角色</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/roleAdd" class="form-horizontal" method="post">
+
+                            <h2 class="form-section">新增角色</h2>
+
+                            <div class="row-fluid">
+
+                                <div class="span6">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">角色名称:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入角色名称"
+                                                   name="role_name"
+                                                   required="required">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <span id="eoor_id" style="color: red"></span>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">节点:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入角色节点"
+                                                   name="role_node"
+                                                   required="required">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr/>
+                            <h2>角色附加权限</h2>
+                            <hr/>
+                            <div class="row-fluid">
+                                <div class="span6 ">
+                                    <label class="control-label">全选:<input type="checkbox" id="allCheckbox"/></label>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span12">
+                                    <div class="control-group">
+                                        <div class="controls" style="float: left;margin-left: 165px">
+                                            <%for(var i=0;i
+                                            <rightList.length
+                                            ;i++){ %>
+                                            <dl style="float: left;padding-left: 15px">
+                                                <dt>
+                                               <input type="checkbox" value="<%=rightList[i].right_id%>"  name="role_right" class="checkedSumBox"><%=rightList[i].right_name%>
+                                                    <%for(var j =0;j
+                                                    <rightList
+                                                            [i].subList.length;j++){%>
+                                                        <dd style="margin-left: 40px">
+                                                           <input type="checkbox" class="checkedSubBox" name="role_right" value="<%=rightList[i].subList[j].right_id%>"><%=rightList[i].subList[j].right_name%>
+                                                        </dd>
+                                                        <%}%>
+
+                                                </dt>
+
+                                            </dl>
+                                            <%}%>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <hr/>
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i
+                                        class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#system_li").addClass('active');
+    });
+</script>
+
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/right-main.js"></script>
+
+<% include layout/footer.html %>
+</body>
+</html>

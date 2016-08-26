@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>编辑菜单</title>
+    <% include layout/header.html %>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="/admin/rightEdit" class="form-horizontal" method="post">
+                            <input type="hidden" name="right_id" value="<%=right.right_id%>"/>
+                            <h2 class="form-section">编辑菜单</h2>
+
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">所属菜单:</label>
+
+                                        <div class="controls">
+
+                                            <select class="span12" name="right_parent_id">
+                                                <option value=""></option>
+                                                <%list.forEach(function(item,index){%>
+                                                <%if(item.right_id == right.right_parent_id){%>
+                                                <option value="<%=item.right_id%>" selected="selected"><%=item.right_name%></option>
+                                                <%}else{%>
+                                                <option value="<%=item.right_id%>"><%=item.right_name%></option>
+                                                <%}%>
+                                                <%})%>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">菜单名称:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入菜单名称" name="right_name" required="required" value="<%=right.right_name%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">菜单节点:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入菜单节点" name="right_node" required="required" value="<%=right.right_node%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">链接:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入链接" name="right_path" value="<%=right.right_path%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">图标样式:</label>
+
+                                        <div class="controls">
+
+                                            <input type="text" class="m-wrap span12" placeholder="请输入图标样式" name="icon" value="<%=right.icon%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+
+                                <div class="span6 ">
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">排序:</label>
+
+                                        <div class="controls">
+
+                                            <input type="number" class="m-wrap span12" placeholder="排序" name="sort" value="<%=right.sort%>">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--/row-->
+
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="icon-ok"></i> 确认</button>
+
+                                <a type="button" href="javascript:history.go(-1)" class="btn"><i class="icon-remove"></i> 取消</a>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#system_li").addClass('active');
+    });
+</script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/editor-main.js"></script>
+
+<% include layout/footer.html %>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>频道列表</title>
+    <% include layout/header.html %>
+    <style>
+        .style_tr td{
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+        .style_tr th{
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+    </style>
+</head>
+<body class="page-header-fixed">
+<% include layout/topbar.html %>
+<div class="page-container row-fluid" style="margin-top: -3px">
+    <% include layout/leftmenu.html %>
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid" style="border-left: 1px solid #cccccc">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid" style="margin-top: 10px">
+
+                <div class="span12">
+                    <h2>频道列表</h2>
+                    <hr/>
+                    <form action="/admin/channelList" class="form-inline" method="get">
+                        <div class="span10">
+                            <select class="m-wrap medium" name="postChoose">
+                                <option value="1">频道名称</option>
+                                <option value="2">SID</option>
+                            </select>
+                        <input type="text" aria-controls="sample_editable_1" class="m-wrap medium" name="keyWord" placeholder="请输入用户名">
+                        <label>按类型:</label>
+                            <select class="m-wrap medium" name="category">
+                                <option value="">---请选择---</option>
+                                <%channelCategory.forEach(function(item,index){%>
+                                <%if(item.category){%>
+                                <option value="<%=item.category%>"><%=item.category%></option>
+                                <%}else{%>
+                                <option value="其他">其他</option>
+                                <%}%>
+                                <%})%>
+                            </select>
+                        <button class="btn" type="submit"> <i
+                                class="icon-search"></i> 搜索</button></div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <div class="bs-example4" data-example-id="contextual-table">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>SID</th>
+                                <th>频道编号</th>
+                                <th>频道名称</th>
+                                <th>类型</th>
+                                <th>发布</th>
+                                <th>状态</th>
+                                <th>比例</th>
+                                <th>数据源</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%channelList.forEach(function(item,index){%>
+                            <tr class="active style_tr">
+                                <th scope="row"><%=index+1%></th>
+                                <td><a href="/admin/epgList?channel_id=<%=item.chid%>&channel_name=<%=item.name%>"><%=item.chid%></a></td>
+                                <td><%=item.sid%></td>
+                                <td>
+                                    <input type="number" value="<%=item.key_code%>" style="width: 30px;height: 15px"/>
+                                    <a class="btn mini check_key_code" style="background-color: #ffffff" chid_date = "<%=item.chid%>">✅</a>
+                                </td>
+                                <td><%=item.name%></td>
+                                <td><%=item.category%></td>
+                                <td>
+                                    <%if(item.release_state == 1){%>
+                                    <i class=" icon-off" style="color: #3cc051"></i>
+                                    <%}else if(item.release_state == 0){%>
+                                    <i class=" icon-off"></i>
+                                    <%}else{%>
+                                    <i class=" icon-off"></i>
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <%if(item.state == 1){%>
+                                    <i class="icon-play" style="color: #3cc051"></i>
+                                    <%}else if(item.state == 0){%>
+                                    <i class="icon-stop"></i>
+                                    <%}else{%>
+                                    <i class="icon-stop"></i>
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <input value="<%=item.proportion%>" style="width: 40px;height: 20px"/>
+                                    <a class="btn mini check_proportion" style="background-color: #ffffff" chid_date = "<%=item.chid%>">✅</a>
+                                </td>
+                                <td><%=item.source%></td>
+                                <td>
+                                  <!--  <a class="btn blue" href="/admin/editorChannel?id=<%=item.chid%>"> <i
+                                            class="icon-edit"></i> 编辑</a>-->
+                                    <%if(item.release_state == 1){%>
+                                    <button class="btn yellow delEditor" onclick="unRelease('releaseModal','<%=item.chid%>','<%=item.name%>')"> <i
+                                            class="icon-ban-circle"></i> 取消发布 </button>
+                                    <%}else{%>
+                                    <button class="btn green release" state="1" id="<%=item.chid%>"> <i
+                                            class="icon-ok"></i> 发布 </button>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="releaseModal" tabindex="0" role="dialog"  aria-labelledby="gridSystemModalLabel" style="overflow-y: auto;display: none">
+    <input type="hidden" id="unrelease_chid"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="showModal('releaseModal')"></button>
+                <h2 class="modal-title" >取消发布</h2>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="box-content">
+                        <span style="color: #d9534f;font-size: 26px">你确认要取消发布<span style="color: #5cb85c" id="unrelease_name_flag"></span>这个频道吗?</span>
+                        <!--<img src="/images/paopaobin.gif"/>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="showModal('releaseModal')">
+                    <i
+                            class="icon-remove"></i> 取消
+
+                </button>
+                <button type="button" class="btn yellow" id="releaseState" state="0"><i
+                        class="icon-ok"></i> 确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $(".page-sidebar li").removeClass('active');
+        $("#adminChannelList_li").addClass('active');
+    });
+
+</script>
+<script src="/javascripts/vendor/require.min.js" data-main="/javascripts/vendor/channel-main.js"></script>
+<% include layout/footer.html %>
+</body>
+</html>
